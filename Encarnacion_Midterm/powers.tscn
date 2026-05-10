@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://csn7m4dxn03e1"]
+
+[ext_resource type="Texture2D" uid="uid://c5rrxhf6nwx4v" path="res://art/Buble.png" id="1_4wvgh"]
+[ext_resource type="Texture2D" uid="uid://dsbyuctpm2sj2" path="res://art/Weeds.png" id="3_1kk1f"]
+
+[sub_resource type="GDScript" id="GDScript_4pwmn"]
+script/source = "extends Area2D
+
+
+func _on_area_entered(area: Area2D) -> void:
+	if (area.name == \"Area2D\"):
+		queue_free()
+"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_4wvgh"]
+load_path = "res://.godot/imported/Coral.png-0444bdace504b189cceb179966af9843.ctex"
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4wvgh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_4wvgh")
+}],
+"loop": true,
+"name": &"buble",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("CompressedTexture2D_4wvgh")
+}],
+"loop": true,
+"name": &"coral",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_1kk1f")
+}],
+"loop": true,
+"name": &"weeds",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wual6"]
+radius = 28.284271
+
+[node name="Powers" type="Area2D" unique_id=1085458610]
+script = SubResource("GDScript_4pwmn")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=671706984]
+sprite_frames = SubResource("SpriteFrames_4wvgh")
+animation = &"buble"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=574418338]
+shape = SubResource("CircleShape2D_wual6")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
